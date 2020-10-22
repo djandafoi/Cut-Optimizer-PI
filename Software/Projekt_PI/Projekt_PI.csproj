@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FCA53381-2314-48CB-95E9-28D27409367B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Projekt_PI</RootNamespace>
+    <AssemblyName>Projekt_PI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="KalkulatorKolicina">
+      <HintPath>..\..\..\..\..\..\source\repos\KalkulatorKolicina\KalkulatorKolicina\bin\Debug\netstandard2.0\KalkulatorKolicina.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CutOptimizerModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CutOptimizerModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CutOptimizerModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CutOptimizerModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CutOptimizerModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\DodavanjeMaterijala.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\DodavanjeMaterijala.Designer.cs">
+      <DependentUpon>DodavanjeMaterijala.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FrmMaterijali.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FrmMaterijali.Designer.cs">
+      <DependentUpon>FrmMaterijali.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FrmIzradaRezneListe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FrmIzradaRezneListe.Designer.cs">
+      <DependentUpon>FrmIzradaRezneListe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FrmPregledReznihListi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FrmPregledReznihListi.Designer.cs">
+      <DependentUpon>FrmPregledReznihListi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FrmGlavna.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FrmGlavna.Designer.cs">
+      <DependentUpon>FrmGlavna.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FrmPregledStanjaZaliha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FrmPregledStanjaZaliha.Designer.cs">
+      <DependentUpon>FrmPregledStanjaZaliha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FrmPrijava.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FrmPrijava.Designer.cs">
+      <DependentUpon>FrmPrijava.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\FrmSkladisnaPrimka.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\FrmSkladisnaPrimka.Designer.cs">
+      <DependentUpon>FrmSkladisnaPrimka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\KreiranjeSkladisnePrimke.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\KreiranjeSkladisnePrimke.Designer.cs">
+      <DependentUpon>KreiranjeSkladisnePrimke.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\KreiranjeStavkeRezneLIste.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\KreiranjeStavkeRezneLIste.Designer.cs">
+      <DependentUpon>KreiranjeStavkeRezneLIste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Korisnik.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Materijal.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Materijal_na_Skladište.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ostatak.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PI20_059_DBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PI20_059_DBDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Plan_rezanja.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skladišna_primka.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Skladište.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Stavka_primke.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stavka_rezanja.cs">
+      <DependentUpon>CutOptimizerModel.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forme\DodavanjeMaterijala.resx">
+      <DependentUpon>DodavanjeMaterijala.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FrmMaterijali.resx">
+      <DependentUpon>FrmMaterijali.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FrmIzradaRezneListe.resx">
+      <DependentUpon>FrmIzradaRezneListe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FrmPregledReznihListi.resx">
+      <DependentUpon>FrmPregledReznihListi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FrmGlavna.resx">
+      <DependentUpon>FrmGlavna.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FrmPregledStanjaZaliha.resx">
+      <DependentUpon>FrmPregledStanjaZaliha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FrmPrijava.resx">
+      <DependentUpon>FrmPrijava.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\FrmSkladisnaPrimka.resx">
+      <DependentUpon>FrmSkladisnaPrimka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\KreiranjeSkladisnePrimke.resx">
+      <DependentUpon>KreiranjeSkladisnePrimke.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\KreiranjeStavkeRezneLIste.resx">
+      <DependentUpon>KreiranjeStavkeRezneLIste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\StanjeSkladišta.rdlc" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EntityDeploy Include="CutOptimizerModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CutOptimizerModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CutOptimizerModel.edmx.diagram">
+      <DependentUpon>CutOptimizerModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="PI20_059_DBDataSet.xsc">
+      <DependentUpon>PI20_059_DBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="PI20_059_DBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PI20_059_DBDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PI20_059_DBDataSet.xss">
+      <DependentUpon>PI20_059_DBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\DataSources\Materijal.datasource" />
+    <None Include="Properties\DataSources\Materijal_na_Skladište.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.MaterijalDataTable.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.MaterijalRow.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.MaterijalRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.MaterijalRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.Materijal_na_SkladišteDataTable.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.Materijal_na_SkladišteRow.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.Materijal_na_SkladišteRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\PI20_059_DBDataSet.Materijal_na_SkladišteRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\Plan_rezanja.datasource" />
+    <None Include="Properties\DataSources\Projekt_PI.PI20_059_DBDataSetTableAdapters.MaterijalTableAdapter.datasource" />
+    <None Include="Properties\DataSources\Projekt_PI.PI20_059_DBDataSetTableAdapters.Materijal_na_SkladišteTableAdapter.datasource" />
+    <None Include="Properties\DataSources\Skladišna_primka.datasource" />
+    <None Include="Properties\DataSources\Skladište.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CutOptimizerModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CutOptimizerModel.edmx</DependentUpon>
+      <LastGenOutput>CutOptimizerModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="CutOptimizerModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CutOptimizerModel.edmx</DependentUpon>
+      <LastGenOutput>CutOptimizerModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

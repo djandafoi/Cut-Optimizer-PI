@@ -1,0 +1,24 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=CutOptimizerHelp.chm
+Contents file=Table of Contents.hhc
+Default topic=Prijava.htm
+Display compile progress=No
+Index file=Index.hhk
+Language=0x809 English (United Kingdom)
+
+
+[FILES]
+Prijava.htm
+Dodavanje Materijala.htm
+Glavni izbornik.htm
+Izrada rezne liste.htm
+Kreiranje skladišne primke.htm
+Materijali.htm
+Pregled reznih listi.htm
+Skladišne primke.htm
+Upravljanje reznim listama.htm
+Skladište.htm
+
+[INFOTYPES]
+

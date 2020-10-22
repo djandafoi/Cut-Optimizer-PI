@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CutOptimizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="ID_Korisnik" />
+          </Key>
+          <Property Name="ID_Korisnik" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="varchar" MaxLength="50" />
+          <Property Name="Prezime" Type="varchar" MaxLength="50" />
+          <Property Name="Korisnicko_Ime" Type="varchar" MaxLength="50" />
+          <Property Name="Lozinka" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Prijavljen" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Materijal">
+          <Key>
+            <PropertyRef Name="ID_Materijal" />
+          </Key>
+          <Property Name="ID_Materijal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv_materijala" Type="varchar" MaxLength="50" />
+          <Property Name="Sirina" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Duzina" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Debljina" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Materijal_na_Skladište">
+          <Key>
+            <PropertyRef Name="Materijal_ID" />
+            <PropertyRef Name="Skladiste_ID" />
+          </Key>
+          <Property Name="Materijal_ID" Type="int" Nullable="false" />
+          <Property Name="Skladiste_ID" Type="int" Nullable="false" />
+          <Property Name="Kolicina" Type="int" />
+        </EntityType>
+        <EntityType Name="Ostatak">
+          <Key>
+            <PropertyRef Name="ID_Ostatak" />
+          </Key>
+          <Property Name="ID_Ostatak" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="Duzina_ostatka" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Plan_Rezanja_ID" Type="int" />
+          <Property Name="Materijal_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Plan_rezanja">
+          <Key>
+            <PropertyRef Name="ID_Plan" />
+          </Key>
+          <Property Name="ID_Plan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv_Plana" Type="varchar" MaxLength="50" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="Korisnik_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Skladišna_primka">
+          <Key>
+            <PropertyRef Name="ID_Primka" />
+          </Key>
+          <Property Name="ID_Primka" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="Korisnik_ID" Type="int" />
+          <Property Name="Potvrda" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Skladište">
+          <Key>
+            <PropertyRef Name="ID_Skladiste" />
+          </Key>
+          <Property Name="ID_Skladiste" Type="int" Nullable="false" />
+          <Property Name="Lokacija" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stavka_primke">
+          <Key>
+            <PropertyRef Name="ID_Stavka" />
+          </Key>
+          <Property Name="ID_Stavka" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kolicina" Type="int" Nullable="false" />
+          <Property Name="Materijal_ID" Type="int" />
+          <Property Name="Primka_ID" Type="int" />
+          <Property Name="Skladiste_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Stavka_rezanja">
+          <Key>
+            <PropertyRef Name="ID_Stavka_Rezanja" />
+          </Key>
+          <Property Name="ID_Stavka_Rezanja" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Duzina_rezanja" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Debljina_pile" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Kolicina" Type="int" />
+          <Property Name="Materijal_ID" Type="int" Nullable="false" />
+          <Property Name="Skladiste_ID" Type="int" Nullable="false" />
+          <Property Name="Ostatak_ID" Type="int" />
+          <Property Name="Plan_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Materijal_na_Skladište_Materijal">
+          <End Role="Materijal" Type="Self.Materijal" Multiplicity="1" />
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal">
+              <PropertyRef Name="ID_Materijal" />
+            </Principal>
+            <Dependent Role="Materijal_na_Skladište">
+              <PropertyRef Name="Materijal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materijal_na_Skladište_Skladište">
+          <End Role="Skladište" Type="Self.Skladište" Multiplicity="1" />
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skladište">
+              <PropertyRef Name="ID_Skladiste" />
+            </Principal>
+            <Dependent Role="Materijal_na_Skladište">
+              <PropertyRef Name="Skladiste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ostatak_Materijal">
+          <End Role="Materijal" Type="Self.Materijal" Multiplicity="0..1" />
+          <End Role="Ostatak" Type="Self.Ostatak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal">
+              <PropertyRef Name="ID_Materijal" />
+            </Principal>
+            <Dependent Role="Ostatak">
+              <PropertyRef Name="Materijal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ostatak_Plan_rezanja">
+          <End Role="Plan_rezanja" Type="Self.Plan_rezanja" Multiplicity="0..1" />
+          <End Role="Ostatak" Type="Self.Ostatak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_rezanja">
+              <PropertyRef Name="ID_Plan" />
+            </Principal>
+            <Dependent Role="Ostatak">
+              <PropertyRef Name="Plan_Rezanja_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plan_rezanja_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Plan_rezanja" Type="Self.Plan_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_Korisnik" />
+            </Principal>
+            <Dependent Role="Plan_rezanja">
+              <PropertyRef Name="Korisnik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skladišna_primka_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Skladišna_primka" Type="Self.Skladišna_primka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_Korisnik" />
+            </Principal>
+            <Dependent Role="Skladišna_primka">
+              <PropertyRef Name="Korisnik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_primke_Materijal">
+          <End Role="Materijal" Type="Self.Materijal" Multiplicity="0..1" />
+          <End Role="Stavka_primke" Type="Self.Stavka_primke" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal">
+              <PropertyRef Name="ID_Materijal" />
+            </Principal>
+            <Dependent Role="Stavka_primke">
+              <PropertyRef Name="Materijal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_primke_Materijal_na_Skladište">
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="0..1" />
+          <End Role="Stavka_primke" Type="Self.Stavka_primke" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal_na_Skladište">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Principal>
+            <Dependent Role="Stavka_primke">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_primke_Skladišna_primka">
+          <End Role="Skladišna_primka" Type="Self.Skladišna_primka" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stavka_primke" Type="Self.Stavka_primke" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skladišna_primka">
+              <PropertyRef Name="ID_Primka" />
+            </Principal>
+            <Dependent Role="Stavka_primke">
+              <PropertyRef Name="Primka_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_rezanja_Materijal_na_Skladište">
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="1" />
+          <End Role="Stavka_rezanja" Type="Self.Stavka_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal_na_Skladište">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Principal>
+            <Dependent Role="Stavka_rezanja">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_rezanja_Ostatak">
+          <End Role="Ostatak" Type="Self.Ostatak" Multiplicity="0..1" />
+          <End Role="Stavka_rezanja" Type="Self.Stavka_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ostatak">
+              <PropertyRef Name="ID_Ostatak" />
+            </Principal>
+            <Dependent Role="Stavka_rezanja">
+              <PropertyRef Name="Ostatak_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_rezanja_Plan_rezanja">
+          <End Role="Plan_rezanja" Type="Self.Plan_rezanja" Multiplicity="0..1" />
+          <End Role="Stavka_rezanja" Type="Self.Stavka_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_rezanja">
+              <PropertyRef Name="ID_Plan" />
+            </Principal>
+            <Dependent Role="Stavka_rezanja">
+              <PropertyRef Name="Plan_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CutOptimizerModelStoreContainer">
+          <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materijal" EntityType="Self.Materijal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materijal_na_Skladište" EntityType="Self.Materijal_na_Skladište" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ostatak" EntityType="Self.Ostatak" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plan_rezanja" EntityType="Self.Plan_rezanja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skladišna_primka" EntityType="Self.Skladišna_primka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skladište" EntityType="Self.Skladište" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stavka_primke" EntityType="Self.Stavka_primke" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stavka_rezanja" EntityType="Self.Stavka_rezanja" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Materijal_na_Skladište_Materijal" Association="Self.FK_Materijal_na_Skladište_Materijal">
+            <End Role="Materijal" EntitySet="Materijal" />
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materijal_na_Skladište_Skladište" Association="Self.FK_Materijal_na_Skladište_Skladište">
+            <End Role="Skladište" EntitySet="Skladište" />
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ostatak_Materijal" Association="Self.FK_Ostatak_Materijal">
+            <End Role="Materijal" EntitySet="Materijal" />
+            <End Role="Ostatak" EntitySet="Ostatak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ostatak_Plan_rezanja" Association="Self.FK_Ostatak_Plan_rezanja">
+            <End Role="Plan_rezanja" EntitySet="Plan_rezanja" />
+            <End Role="Ostatak" EntitySet="Ostatak" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plan_rezanja_Korisnik" Association="Self.FK_Plan_rezanja_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Plan_rezanja" EntitySet="Plan_rezanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skladišna_primka_Korisnik" Association="Self.FK_Skladišna_primka_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Skladišna_primka" EntitySet="Skladišna_primka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_primke_Materijal" Association="Self.FK_Stavka_primke_Materijal">
+            <End Role="Materijal" EntitySet="Materijal" />
+            <End Role="Stavka_primke" EntitySet="Stavka_primke" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_primke_Materijal_na_Skladište" Association="Self.FK_Stavka_primke_Materijal_na_Skladište">
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+            <End Role="Stavka_primke" EntitySet="Stavka_primke" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_primke_Skladišna_primka" Association="Self.FK_Stavka_primke_Skladišna_primka">
+            <End Role="Skladišna_primka" EntitySet="Skladišna_primka" />
+            <End Role="Stavka_primke" EntitySet="Stavka_primke" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_rezanja_Materijal_na_Skladište" Association="Self.FK_Stavka_rezanja_Materijal_na_Skladište">
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+            <End Role="Stavka_rezanja" EntitySet="Stavka_rezanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_rezanja_Ostatak" Association="Self.FK_Stavka_rezanja_Ostatak">
+            <End Role="Ostatak" EntitySet="Ostatak" />
+            <End Role="Stavka_rezanja" EntitySet="Stavka_rezanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_rezanja_Plan_rezanja" Association="Self.FK_Stavka_rezanja_Plan_rezanja">
+            <End Role="Plan_rezanja" EntitySet="Plan_rezanja" />
+            <End Role="Stavka_rezanja" EntitySet="Stavka_rezanja" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CutOptimizerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="ID_Korisnik" />
+          </Key>
+          <Property Name="ID_Korisnik" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Korisnicko_Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lozinka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prijavljen" Type="Byte" />
+          <NavigationProperty Name="Plan_rezanja" Relationship="Self.FK_Plan_rezanja_Korisnik" FromRole="Korisnik" ToRole="Plan_rezanja" />
+          <NavigationProperty Name="Skladišna_primka" Relationship="Self.FK_Skladišna_primka_Korisnik" FromRole="Korisnik" ToRole="Skladišna_primka" />
+        </EntityType>
+        <EntityType Name="Materijal">
+          <Key>
+            <PropertyRef Name="ID_Materijal" />
+          </Key>
+          <Property Name="ID_Materijal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv_materijala" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sirina" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Duzina" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Debljina" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Materijal_na_Skladište" Relationship="Self.FK_Materijal_na_Skladište_Materijal" FromRole="Materijal" ToRole="Materijal_na_Skladište" />
+          <NavigationProperty Name="Ostataks" Relationship="Self.FK_Ostatak_Materijal" FromRole="Materijal" ToRole="Ostatak" />
+          <NavigationProperty Name="Stavka_primke" Relationship="Self.FK_Stavka_primke_Materijal" FromRole="Materijal" ToRole="Stavka_primke" />
+        </EntityType>
+        <EntityType Name="Materijal_na_Skladište">
+          <Key>
+            <PropertyRef Name="Materijal_ID" />
+            <PropertyRef Name="Skladiste_ID" />
+          </Key>
+          <Property Name="Materijal_ID" Type="Int32" Nullable="false" />
+          <Property Name="Skladiste_ID" Type="Int32" Nullable="false" />
+          <Property Name="Kolicina" Type="Int32" />
+          <NavigationProperty Name="Materijal" Relationship="Self.FK_Materijal_na_Skladište_Materijal" FromRole="Materijal_na_Skladište" ToRole="Materijal" />
+          <NavigationProperty Name="Skladište" Relationship="Self.FK_Materijal_na_Skladište_Skladište" FromRole="Materijal_na_Skladište" ToRole="Skladište" />
+          <NavigationProperty Name="Stavka_primke" Relationship="Self.FK_Stavka_primke_Materijal_na_Skladište" FromRole="Materijal_na_Skladište" ToRole="Stavka_primke" />
+          <NavigationProperty Name="Stavka_rezanja" Relationship="Self.FK_Stavka_rezanja_Materijal_na_Skladište" FromRole="Materijal_na_Skladište" ToRole="Stavka_rezanja" />
+        </EntityType>
+        <EntityType Name="Ostatak">
+          <Key>
+            <PropertyRef Name="ID_Ostatak" />
+          </Key>
+          <Property Name="ID_Ostatak" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="DateTime" Precision="3" />
+          <Property Name="Duzina_ostatka" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Plan_Rezanja_ID" Type="Int32" />
+          <Property Name="Materijal_ID" Type="Int32" />
+          <NavigationProperty Name="Materijal" Relationship="Self.FK_Ostatak_Materijal" FromRole="Ostatak" ToRole="Materijal" />
+          <NavigationProperty Name="Plan_rezanja" Relationship="Self.FK_Ostatak_Plan_rezanja" FromRole="Ostatak" ToRole="Plan_rezanja" />
+          <NavigationProperty Name="Stavka_rezanja" Relationship="Self.FK_Stavka_rezanja_Ostatak" FromRole="Ostatak" ToRole="Stavka_rezanja" />
+        </EntityType>
+        <EntityType Name="Plan_rezanja">
+          <Key>
+            <PropertyRef Name="ID_Plan" />
+          </Key>
+          <Property Name="ID_Plan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv_Plana" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Datum" Type="DateTime" Precision="3" />
+          <Property Name="Korisnik_ID" Type="Int32" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_Plan_rezanja_Korisnik" FromRole="Plan_rezanja" ToRole="Korisnik" />
+          <NavigationProperty Name="Ostataks" Relationship="Self.FK_Ostatak_Plan_rezanja" FromRole="Plan_rezanja" ToRole="Ostatak" />
+          <NavigationProperty Name="Stavka_rezanja" Relationship="Self.FK_Stavka_rezanja_Plan_rezanja" FromRole="Plan_rezanja" ToRole="Stavka_rezanja" />
+        </EntityType>
+        <EntityType Name="Skladišna_primka">
+          <Key>
+            <PropertyRef Name="ID_Primka" />
+          </Key>
+          <Property Name="ID_Primka" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="DateTime" Precision="3" />
+          <Property Name="Korisnik_ID" Type="Int32" />
+          <Property Name="Potvrda" Type="Byte" />
+          <NavigationProperty Name="Korisnik" Relationship="Self.FK_Skladišna_primka_Korisnik" FromRole="Skladišna_primka" ToRole="Korisnik" />
+          <NavigationProperty Name="Stavka_primke" Relationship="Self.FK_Stavka_primke_Skladišna_primka" FromRole="Skladišna_primka" ToRole="Stavka_primke" />
+        </EntityType>
+        <EntityType Name="Skladište">
+          <Key>
+            <PropertyRef Name="ID_Skladiste" />
+          </Key>
+          <Property Name="ID_Skladiste" Type="Int32" Nullable="false" />
+          <Property Name="Lokacija" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Materijal_na_Skladište" Relationship="Self.FK_Materijal_na_Skladište_Skladište" FromRole="Skladište" ToRole="Materijal_na_Skladište" />
+        </EntityType>
+        <EntityType Name="Stavka_primke">
+          <Key>
+            <PropertyRef Name="ID_Stavka" />
+          </Key>
+          <Property Name="ID_Stavka" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kolicina" Type="Int32" Nullable="false" />
+          <Property Name="Materijal_ID" Type="Int32" />
+          <Property Name="Primka_ID" Type="Int32" />
+          <Property Name="Skladiste_ID" Type="Int32" />
+          <NavigationProperty Name="Materijal" Relationship="Self.FK_Stavka_primke_Materijal" FromRole="Stavka_primke" ToRole="Materijal" />
+          <NavigationProperty Name="Materijal_na_Skladište" Relationship="Self.FK_Stavka_primke_Materijal_na_Skladište" FromRole="Stavka_primke" ToRole="Materijal_na_Skladište" />
+          <NavigationProperty Name="Skladišna_primka" Relationship="Self.FK_Stavka_primke_Skladišna_primka" FromRole="Stavka_primke" ToRole="Skladišna_primka" />
+        </EntityType>
+        <EntityType Name="Stavka_rezanja">
+          <Key>
+            <PropertyRef Name="ID_Stavka_Rezanja" />
+          </Key>
+          <Property Name="ID_Stavka_Rezanja" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Duzina_rezanja" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Debljina_pile" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Kolicina" Type="Int32" />
+          <Property Name="Materijal_ID" Type="Int32" Nullable="false" />
+          <Property Name="Skladiste_ID" Type="Int32" Nullable="false" />
+          <Property Name="Ostatak_ID" Type="Int32" />
+          <Property Name="Plan_ID" Type="Int32" />
+          <NavigationProperty Name="Materijal_na_Skladište" Relationship="Self.FK_Stavka_rezanja_Materijal_na_Skladište" FromRole="Stavka_rezanja" ToRole="Materijal_na_Skladište" />
+          <NavigationProperty Name="Ostatak" Relationship="Self.FK_Stavka_rezanja_Ostatak" FromRole="Stavka_rezanja" ToRole="Ostatak" />
+          <NavigationProperty Name="Plan_rezanja" Relationship="Self.FK_Stavka_rezanja_Plan_rezanja" FromRole="Stavka_rezanja" ToRole="Plan_rezanja" />
+        </EntityType>
+        <Association Name="FK_Plan_rezanja_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Plan_rezanja" Type="Self.Plan_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_Korisnik" />
+            </Principal>
+            <Dependent Role="Plan_rezanja">
+              <PropertyRef Name="Korisnik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skladišna_primka_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="0..1" />
+          <End Role="Skladišna_primka" Type="Self.Skladišna_primka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="ID_Korisnik" />
+            </Principal>
+            <Dependent Role="Skladišna_primka">
+              <PropertyRef Name="Korisnik_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materijal_na_Skladište_Materijal">
+          <End Role="Materijal" Type="Self.Materijal" Multiplicity="1" />
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal">
+              <PropertyRef Name="ID_Materijal" />
+            </Principal>
+            <Dependent Role="Materijal_na_Skladište">
+              <PropertyRef Name="Materijal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ostatak_Materijal">
+          <End Role="Materijal" Type="Self.Materijal" Multiplicity="0..1" />
+          <End Role="Ostatak" Type="Self.Ostatak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal">
+              <PropertyRef Name="ID_Materijal" />
+            </Principal>
+            <Dependent Role="Ostatak">
+              <PropertyRef Name="Materijal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_primke_Materijal">
+          <End Role="Materijal" Type="Self.Materijal" Multiplicity="0..1" />
+          <End Role="Stavka_primke" Type="Self.Stavka_primke" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal">
+              <PropertyRef Name="ID_Materijal" />
+            </Principal>
+            <Dependent Role="Stavka_primke">
+              <PropertyRef Name="Materijal_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materijal_na_Skladište_Skladište">
+          <End Role="Skladište" Type="Self.Skladište" Multiplicity="1" />
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skladište">
+              <PropertyRef Name="ID_Skladiste" />
+            </Principal>
+            <Dependent Role="Materijal_na_Skladište">
+              <PropertyRef Name="Skladiste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_primke_Materijal_na_Skladište">
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="0..1" />
+          <End Role="Stavka_primke" Type="Self.Stavka_primke" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal_na_Skladište">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Principal>
+            <Dependent Role="Stavka_primke">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_rezanja_Materijal_na_Skladište">
+          <End Role="Materijal_na_Skladište" Type="Self.Materijal_na_Skladište" Multiplicity="1" />
+          <End Role="Stavka_rezanja" Type="Self.Stavka_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materijal_na_Skladište">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Principal>
+            <Dependent Role="Stavka_rezanja">
+              <PropertyRef Name="Materijal_ID" />
+              <PropertyRef Name="Skladiste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ostatak_Plan_rezanja">
+          <End Role="Plan_rezanja" Type="Self.Plan_rezanja" Multiplicity="0..1" />
+          <End Role="Ostatak" Type="Self.Ostatak" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_rezanja">
+              <PropertyRef Name="ID_Plan" />
+            </Principal>
+            <Dependent Role="Ostatak">
+              <PropertyRef Name="Plan_Rezanja_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_rezanja_Ostatak">
+          <End Role="Ostatak" Type="Self.Ostatak" Multiplicity="0..1" />
+          <End Role="Stavka_rezanja" Type="Self.Stavka_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ostatak">
+              <PropertyRef Name="ID_Ostatak" />
+            </Principal>
+            <Dependent Role="Stavka_rezanja">
+              <PropertyRef Name="Ostatak_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_rezanja_Plan_rezanja">
+          <End Role="Plan_rezanja" Type="Self.Plan_rezanja" Multiplicity="0..1" />
+          <End Role="Stavka_rezanja" Type="Self.Stavka_rezanja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plan_rezanja">
+              <PropertyRef Name="ID_Plan" />
+            </Principal>
+            <Dependent Role="Stavka_rezanja">
+              <PropertyRef Name="Plan_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_primke_Skladišna_primka">
+          <End Role="Skladišna_primka" Type="Self.Skladišna_primka" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stavka_primke" Type="Self.Stavka_primke" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skladišna_primka">
+              <PropertyRef Name="ID_Primka" />
+            </Principal>
+            <Dependent Role="Stavka_primke">
+              <PropertyRef Name="Primka_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CutOptimizerEntities5" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
+          <EntitySet Name="Materijals" EntityType="Self.Materijal" />
+          <EntitySet Name="Materijal_na_Skladište" EntityType="Self.Materijal_na_Skladište" />
+          <EntitySet Name="Ostataks" EntityType="Self.Ostatak" />
+          <EntitySet Name="Plan_rezanja" EntityType="Self.Plan_rezanja" />
+          <EntitySet Name="Skladišna_primka" EntityType="Self.Skladišna_primka" />
+          <EntitySet Name="Skladište" EntityType="Self.Skladište" />
+          <EntitySet Name="Stavka_primke" EntityType="Self.Stavka_primke" />
+          <EntitySet Name="Stavka_rezanja" EntityType="Self.Stavka_rezanja" />
+          <AssociationSet Name="FK_Plan_rezanja_Korisnik" Association="Self.FK_Plan_rezanja_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Plan_rezanja" EntitySet="Plan_rezanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skladišna_primka_Korisnik" Association="Self.FK_Skladišna_primka_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Skladišna_primka" EntitySet="Skladišna_primka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materijal_na_Skladište_Materijal" Association="Self.FK_Materijal_na_Skladište_Materijal">
+            <End Role="Materijal" EntitySet="Materijals" />
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ostatak_Materijal" Association="Self.FK_Ostatak_Materijal">
+            <End Role="Materijal" EntitySet="Materijals" />
+            <End Role="Ostatak" EntitySet="Ostataks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_primke_Materijal" Association="Self.FK_Stavka_primke_Materijal">
+            <End Role="Materijal" EntitySet="Materijals" />
+            <End Role="Stavka_primke" EntitySet="Stavka_primke" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materijal_na_Skladište_Skladište" Association="Self.FK_Materijal_na_Skladište_Skladište">
+            <End Role="Skladište" EntitySet="Skladište" />
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_primke_Materijal_na_Skladište" Association="Self.FK_Stavka_primke_Materijal_na_Skladište">
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+            <End Role="Stavka_primke" EntitySet="Stavka_primke" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_rezanja_Materijal_na_Skladište" Association="Self.FK_Stavka_rezanja_Materijal_na_Skladište">
+            <End Role="Materijal_na_Skladište" EntitySet="Materijal_na_Skladište" />
+            <End Role="Stavka_rezanja" EntitySet="Stavka_rezanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ostatak_Plan_rezanja" Association="Self.FK_Ostatak_Plan_rezanja">
+            <End Role="Plan_rezanja" EntitySet="Plan_rezanja" />
+            <End Role="Ostatak" EntitySet="Ostataks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_rezanja_Ostatak" Association="Self.FK_Stavka_rezanja_Ostatak">
+            <End Role="Ostatak" EntitySet="Ostataks" />
+            <End Role="Stavka_rezanja" EntitySet="Stavka_rezanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_rezanja_Plan_rezanja" Association="Self.FK_Stavka_rezanja_Plan_rezanja">
+            <End Role="Plan_rezanja" EntitySet="Plan_rezanja" />
+            <End Role="Stavka_rezanja" EntitySet="Stavka_rezanja" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_primke_Skladišna_primka" Association="Self.FK_Stavka_primke_Skladišna_primka">
+            <End Role="Skladišna_primka" EntitySet="Skladišna_primka" />
+            <End Role="Stavka_primke" EntitySet="Stavka_primke" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CutOptimizerModelStoreContainer" CdmEntityContainer="CutOptimizerEntities5">
+          <EntitySetMapping Name="Korisniks">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Korisnik">
+              <MappingFragment StoreEntitySet="Korisnik">
+                <ScalarProperty Name="ID_Korisnik" ColumnName="ID_Korisnik" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Korisnicko_Ime" ColumnName="Korisnicko_Ime" />
+                <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Prijavljen" ColumnName="Prijavljen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materijals">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Materijal">
+              <MappingFragment StoreEntitySet="Materijal">
+                <ScalarProperty Name="ID_Materijal" ColumnName="ID_Materijal" />
+                <ScalarProperty Name="Naziv_materijala" ColumnName="Naziv_materijala" />
+                <ScalarProperty Name="Sirina" ColumnName="Sirina" />
+                <ScalarProperty Name="Duzina" ColumnName="Duzina" />
+                <ScalarProperty Name="Debljina" ColumnName="Debljina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materijal_na_Skladište">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Materijal_na_Skladište">
+              <MappingFragment StoreEntitySet="Materijal_na_Skladište">
+                <ScalarProperty Name="Materijal_ID" ColumnName="Materijal_ID" />
+                <ScalarProperty Name="Skladiste_ID" ColumnName="Skladiste_ID" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ostataks">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Ostatak">
+              <MappingFragment StoreEntitySet="Ostatak">
+                <ScalarProperty Name="ID_Ostatak" ColumnName="ID_Ostatak" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Duzina_ostatka" ColumnName="Duzina_ostatka" />
+                <ScalarProperty Name="Plan_Rezanja_ID" ColumnName="Plan_Rezanja_ID" />
+                <ScalarProperty Name="Materijal_ID" ColumnName="Materijal_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plan_rezanja">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Plan_rezanja">
+              <MappingFragment StoreEntitySet="Plan_rezanja">
+                <ScalarProperty Name="ID_Plan" ColumnName="ID_Plan" />
+                <ScalarProperty Name="Naziv_Plana" ColumnName="Naziv_Plana" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Korisnik_ID" ColumnName="Korisnik_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skladišna_primka">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Skladišna_primka">
+              <MappingFragment StoreEntitySet="Skladišna_primka">
+                <ScalarProperty Name="ID_Primka" ColumnName="ID_Primka" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Korisnik_ID" ColumnName="Korisnik_ID" />
+                <ScalarProperty Name="Potvrda" ColumnName="Potvrda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skladište">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Skladište">
+              <MappingFragment StoreEntitySet="Skladište">
+                <ScalarProperty Name="ID_Skladiste" ColumnName="ID_Skladiste" />
+                <ScalarProperty Name="Lokacija" ColumnName="Lokacija" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stavka_primke">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Stavka_primke">
+              <MappingFragment StoreEntitySet="Stavka_primke">
+                <ScalarProperty Name="ID_Stavka" ColumnName="ID_Stavka" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="Materijal_ID" ColumnName="Materijal_ID" />
+                <ScalarProperty Name="Primka_ID" ColumnName="Primka_ID" />
+                <ScalarProperty Name="Skladiste_ID" ColumnName="Skladiste_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stavka_rezanja">
+            <EntityTypeMapping TypeName="CutOptimizerModel.Stavka_rezanja">
+              <MappingFragment StoreEntitySet="Stavka_rezanja">
+                <ScalarProperty Name="ID_Stavka_Rezanja" ColumnName="ID_Stavka_Rezanja" />
+                <ScalarProperty Name="Duzina_rezanja" ColumnName="Duzina_rezanja" />
+                <ScalarProperty Name="Debljina_pile" ColumnName="Debljina_pile" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="Materijal_ID" ColumnName="Materijal_ID" />
+                <ScalarProperty Name="Skladiste_ID" ColumnName="Skladiste_ID" />
+                <ScalarProperty Name="Ostatak_ID" ColumnName="Ostatak_ID" />
+                <ScalarProperty Name="Plan_ID" ColumnName="Plan_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CutOpzimizerModelStoreContainer" CdmEntityContainer="CutOpzimizerEntities">
+    <EntitySetMapping Name="Korisniks">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Korisnik">
+        <MappingFragment StoreEntitySet="Korisnik">
+          <ScalarProperty Name="ID_Korisnik" ColumnName="ID_Korisnik" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Korisnicko_Ime" ColumnName="Korisnicko_Ime" />
+          <ScalarProperty Name="Lozinka" ColumnName="Lozinka" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Prijavljen" ColumnName="Prijavljen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Materijals">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Materijal">
+        <MappingFragment StoreEntitySet="Materijal">
+          <ScalarProperty Name="ID_Materijal" ColumnName="ID_Materijal" />
+          <ScalarProperty Name="Naziv_materijala" ColumnName="Naziv_materijala" />
+          <ScalarProperty Name="Sirina" ColumnName="Sirina" />
+          <ScalarProperty Name="Duzina" ColumnName="Duzina" />
+          <ScalarProperty Name="Debljina" ColumnName="Debljina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ostataks">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Ostatak">
+        <MappingFragment StoreEntitySet="Ostatak">
+          <ScalarProperty Name="ID_Ostatak" ColumnName="ID_Ostatak" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="Duzina_ostatka" ColumnName="Duzina_ostatka" />
+          <ScalarProperty Name="Plan_Rezanja_ID" ColumnName="Plan_Rezanja_ID" />
+          <ScalarProperty Name="Materijal_ID" ColumnName="Materijal_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Plan_rezanja">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Plan_rezanja">
+        <MappingFragment StoreEntitySet="Plan_rezanja">
+          <ScalarProperty Name="ID_Plan" ColumnName="ID_Plan" />
+          <ScalarProperty Name="Naziv_Plana" ColumnName="Naziv_Plana" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="Korisnik_ID" ColumnName="Korisnik_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skladišna_primka">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Skladišna_primka">
+        <MappingFragment StoreEntitySet="Skladišna_primka">
+          <ScalarProperty Name="ID_Primka" ColumnName="ID_Primka" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="Korisnik_ID" ColumnName="Korisnik_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Skladište">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Skladište">
+        <MappingFragment StoreEntitySet="Skladište">
+          <ScalarProperty Name="Materijal_ID" ColumnName="Materijal_ID" />
+          <ScalarProperty Name="ID_Skladiste" ColumnName="ID_Skladiste" />
+          <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stavka_primke">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Stavka_primke">
+        <MappingFragment StoreEntitySet="Stavka_primke">
+          <ScalarProperty Name="ID_Stavka" ColumnName="ID_Stavka" />
+          <ScalarProperty Name="Količina" ColumnName="Količina" />
+          <ScalarProperty Name="Materijal_ID" ColumnName="Materijal_ID" />
+          <ScalarProperty Name="Primka_ID" ColumnName="Primka_ID" />
+          <ScalarProperty Name="Skladište_ID" ColumnName="Skladište_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stavka_rezanja">
+      <EntityTypeMapping TypeName="CutOpzimizerModel.Stavka_rezanja">
+        <MappingFragment StoreEntitySet="Stavka_rezanja">
+          <ScalarProperty Name="ID_Stavka_Rezanja" ColumnName="ID_Stavka_Rezanja" />
+          <ScalarProperty Name="Duzina_rezanja" ColumnName="Duzina_rezanja" />
+          <ScalarProperty Name="Debljina_pile" ColumnName="Debljina_pile" />
+          <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+          <ScalarProperty Name="SkladisniMaterijal_ID" ColumnName="SkladisniMaterijal_ID" />
+          <ScalarProperty Name="Skladiste_ID" ColumnName="Skladiste_ID" />
+          <ScalarProperty Name="Ostatak_ID" ColumnName="Ostatak_ID" />
+          <ScalarProperty Name="Plan_ID" ColumnName="Plan_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
